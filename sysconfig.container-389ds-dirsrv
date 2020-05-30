@@ -1,0 +1,46 @@
+## Path:        Container/389ds/dirsrv
+## Description: Settings for 389ds/dirsrv container
+## Type:        string
+## Default:     "registry.opensuse.org/home/robinr1/containers/389-ds/containers/dirsrv:latest"
+#
+# Name of the image path to pull the libvirtd image from
+389DS_DIRSRV_IMAGE_PATH=registry.opensuse.org/home/robinr1/containers/389-ds/containers/dirsrv:latest
+
+## Type:        string
+## Default:     "/srv/389ds-dirsrv/"
+#
+# Name of the path where the 389ds dirsrv data will be stored
+DATA_DIR="/srv/389ds-dirsrv"
+
+## Type:        string
+## Default:     "/etc/pki/tls/private/server.key"
+#
+# Full path and filename of the server certificate private key.
+SERVER_PRIVATE_KEY="/etc/pki/tls/private/server.key"
+
+## Type:        string
+## Default:     "/etc/pki/tls/private/server.key"
+#
+# Full path and filename of the server certificate.
+SERVER_CERTIFICATE="/etc/pki/tls/private/server.key"
+
+## Type:        string
+## Default:     "/etc/pki/tls/CA/CA.pem"
+#
+# Full path and filename of the server certificate CA certificate chain.
+CA_CERTIFICATE_CHAIN="/etc/pki/tls/CA/CA.pem"
+
+## Type:        integer
+## Default:     3636
+#
+# The port the 389ds dirsrv LDAPS service will listen on
+LDAPS_PORT=3636
+
+## Type:        string
+## Default:     "/etc/389ds-dirsrv-secrets"
+#
+# Path where the file with the password for the Directory Manager
+# can be found. The file name needs to be DS_DM_PASSWORD
+# and should not be readable for anybody else. It is recommended to 
+# remove this file after initialization of the container
+SECRETS_DIR="/etc/389ds-dirsrv-secrets"
