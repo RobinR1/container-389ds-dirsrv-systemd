@@ -1,19 +1,18 @@
 [Unit]
-Description=libvirtd container
-Documentation=https://build.opensuse.org/package/show/home:RobinR1:containers/libvirtd
+Description=389ds/dirsrv container
+Documentation=https://build.opensuse.org/package/show/home:RobinR1:containers:389-ds/dirsrv
 After=network-online.target
 
 [Service]
 TimeoutStartSec=0
 Restart=always
-EnvironmentFile=/etc/sysconfig/container-libvirtd
-ExecStartPre=-/usr/bin/mkdir -p ${STORAGE_POOL_DIR} ${QEMU_CONFIG_DIR}
-ExecStartPre=-/usr/bin/podman stop libvirtd
-ExecStartPre=-/usr/bin/podman rm libvirtd
-ExecStartPre=-/usr/bin/podman pull ${LIBVIRTD_IMAGE_PATH}
-ExecStart=/usr/bin/podman run --rm --privileged --net=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw -v ${STORAGE_POOL_DIR}:/var/lib/libvirt/ -v ${QEMU_CONFIG_DIR}:/etc/libvirt/qemu -v ${SSH_USERCONFIG_DIR}:/root/.ssh -v ${SECRETS_DIR}:/etc/libvirtd-secrets --env ROOT_PASSWORD_FILE=/etc/libvirtd-secrets/ROOT_PASSWORD --env SSHD_PORT=${SSHD_PORT} --name libvirtd ${LIBVIRTD_IMAGE_PATH}
-ExecStop=/usr/bin/podman stop -t ${SHUTDOWN_TIMEOUT} libvirtd
-TimeoutStopSec=infinity
+EnvironmentFile=/etc/sysconfig/container-389ds-dirsrv
+ExecStartPre=-/usr/bin/mkdir -p ${DATA_DIR}
+ExecStartPre=-/usr/bin/podman stop dirsrv
+ExecStartPre=-/usr/bin/podman rm dirsrv
+ExecStartPre=-/usr/bin/podman pull ${389DS_DIRSRV_IMAGE_PATH}
+ExecStart=/usr/bin/podman run --rm -v ${DATA_DIR}:/data -v ${SERVER_PRIVATE_KEY}:/data/tls/server.key -v ${SERVER_CERTIFICATE}:/data/tls/server.crt -v ${CA_CERTIFICATE_CHAIN}:/data/tsl/ca/CA.crt -v ${KRB5_CONF}:/etc/krb5.conf -v ${SECRETS_DIR}:/etc/389ds-dirsrv-secrets -e DS_DM_PASSWORD_FILE=/etc/389ds-dirsrv-secrets/DS_DM_PASSWORD -e KRB5_KTNAME=/data/config/krb5.keytab -p ${LDAPS_PORT}:3636 --healthcheck-command '/usr/lib/dirsrv/dscontainer -H' --healthcheck-interval 5s --healthcheck-start-period 5m --healthcheck-timeout 5s --healthcheck-retries 2 --name dirsrv ${389DS_DIRSRV_IMAGE_PATH}
+ExecStop=/usr/bin/podman stop -t 10 dirsrv
 
 [Install]
 WantedBy=multi-user.target
