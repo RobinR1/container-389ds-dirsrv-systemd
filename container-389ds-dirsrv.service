@@ -10,8 +10,8 @@ EnvironmentFile=/etc/sysconfig/container-389ds-dirsrv
 ExecStartPre=-/usr/bin/mkdir -p ${DATA_DIR}
 ExecStartPre=-/usr/bin/podman stop dirsrv
 ExecStartPre=-/usr/bin/podman rm dirsrv
-ExecStartPre=-/usr/bin/podman pull ${389DS_DIRSRV_IMAGE_PATH}
-ExecStart=/usr/bin/podman run --rm -v ${DATA_DIR}:/data -v ${SERVER_PRIVATE_KEY}:/data/tls/server.key -v ${SERVER_CERTIFICATE}:/data/tls/server.crt -v ${CA_CERTIFICATE_CHAIN}:/data/tsl/ca/CA.crt -v ${KRB5_CONF}:/etc/krb5.conf -v ${SECRETS_DIR}:/etc/389ds-dirsrv-secrets -e DS_DM_PASSWORD_FILE=/etc/389ds-dirsrv-secrets/DS_DM_PASSWORD -e KRB5_KTNAME=/data/config/krb5.keytab -p ${LDAPS_PORT}:3636 --healthcheck-command '/usr/lib/dirsrv/dscontainer -H' --healthcheck-interval 5s --healthcheck-start-period 5m --healthcheck-timeout 5s --healthcheck-retries 2 --name dirsrv ${389DS_DIRSRV_IMAGE_PATH}
+ExecStartPre=-/usr/bin/podman pull ${DIRSRV_IMAGE_PATH}
+ExecStart=/usr/bin/podman run --rm -v ${DATA_DIR}:/data -v ${SERVER_PRIVATE_KEY}:/data/tls/server.key -v ${SERVER_CERTIFICATE}:/data/tls/server.crt -v ${CA_CERTIFICATE_CHAIN}:/data/tsl/ca/CA.crt -v ${KRB5_CONF}:/etc/krb5.conf -v ${SECRETS_DIR}:/etc/389ds-dirsrv-secrets -e DS_DM_PASSWORD_FILE=/etc/389ds-dirsrv-secrets/DS_DM_PASSWORD -e KRB5_KTNAME=/data/config/krb5.keytab -p ${LDAPS_PORT}:3636 --healthcheck-command '/usr/lib/dirsrv/dscontainer -H' --healthcheck-interval 5s --healthcheck-start-period 5m --healthcheck-timeout 5s --healthcheck-retries 2 --name dirsrv ${DIRSRV_IMAGE_PATH}
 ExecStop=/usr/bin/podman stop -t 10 dirsrv
 
 [Install]

@@ -4,7 +4,7 @@
 ## Default:     "registry.opensuse.org/home/robinr1/containers/389-ds/containers/dirsrv:latest"
 #
 # Name of the image path to pull the libvirtd image from
-389DS_DIRSRV_IMAGE_PATH=registry.opensuse.org/home/robinr1/containers/389-ds/containers/dirsrv:latest
+DIRSRV_IMAGE_PATH=registry.opensuse.org/home/robinr1/containers/389-ds/containers/dirsrv:latest
 
 ## Type:        string
 ## Default:     "/srv/389ds-dirsrv/"
