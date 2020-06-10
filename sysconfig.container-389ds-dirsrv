@@ -30,6 +30,12 @@ SERVER_CERTIFICATE="/etc/pki/tls/private/server.key"
 # Full path and filename of the server certificate CA certificate chain.
 CA_CERTIFICATE_CHAIN="/etc/pki/tls/CA/CA.pem"
 
+## Type:        string
+## Default:     "/etc/krb5.conf"
+#
+# Full path and filename of the krb5 client configuration
+KRB5_CONF="/etc/krb5.conf"
+
 ## Type:        integer
 ## Default:     3636
 #
