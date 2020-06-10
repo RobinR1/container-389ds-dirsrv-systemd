@@ -37,10 +37,10 @@ CA_CERTIFICATE_CHAIN="/etc/pki/tls/CA/CA.pem"
 KRB5_CONF="/etc/krb5.conf"
 
 ## Type:        integer
-## Default:     3636
+## Default:     636
 #
 # The port the 389ds dirsrv LDAPS service will listen on
-LDAPS_PORT=3636
+LDAPS_PORT=636
 
 ## Type:        string
 ## Default:     "/etc/389ds-dirsrv-secrets"
